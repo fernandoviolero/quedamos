@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Importar formulario · Quedamos</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../img/icono.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Young+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilos.css">
+<style>
+  .paso { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r-l); padding: 22px; margin-top: 20px; }
+  .paso > h2 { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; }
+  .paso__num { width: 30px; height: 30px; border-radius: 50%; background: var(--tinta); color: #fff; display: grid; place-items: center; font-size: .9rem; flex: none; }
+  .paso--hecho .paso__num { background: var(--hoja); }
+  .paso > p.sub { margin-bottom: 16px; max-width: 75ch; }
+  .tabla { width: 100%; border-collapse: collapse; font-size: var(--t-s); }
+  .tabla th, .tabla td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--linea-2); vertical-align: top; }
+  .tabla th { font-size: var(--t-xs); color: var(--tinta-3); font-weight: 700; }
+  .tabla .selector, .tabla .entrada { min-height: 38px; padding-top: 6px; padding-bottom: 6px; }
+  .respuesta { border: 1px solid var(--linea); border-radius: var(--r-m); margin-top: 14px; overflow: hidden; }
+  .respuesta__cab { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: var(--papel-2); border-bottom: 1px solid var(--linea-2); }
+  .respuesta__orig { font-size: var(--t-s); color: var(--tinta-2); font-style: italic; }
+  .item { display: grid; grid-template-columns: minmax(170px, 1.3fr) 170px 170px minmax(200px, 1.6fr) 40px; gap: 8px; padding: 10px 14px; border-bottom: 1px dashed var(--linea-2); align-items: start; }
+  .item:last-child { border-bottom: 0; }
+  .item .entrada, .item .selector { min-height: 38px; padding-top: 6px; padding-bottom: 6px; font-size: var(--t-s); }
+  .item__lugar { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(220px, 2fr) 190px auto minmax(160px, 1.2fr); gap: 8px; align-items: center; padding: 10px; border-radius: 10px; background: var(--azulejo-claro); }
+  .item__estado { font-size: var(--t-xs); }
+  .item--error { background: var(--madrono-claro); }
+  .resumen-final { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0 18px; }
+  .resumen-final div { background: var(--papel-2); border: 1px solid var(--linea-2); border-radius: 12px; padding: 12px; }
+  .resumen-final strong { display: block; font-size: 1.6rem; font-variation-settings: "wdth" 80; }
+  .errores-lista { margin: 0; padding-left: 20px; color: #8A1C23; font-size: var(--t-s); }
+  @media (max-width: 900px) { .item { grid-template-columns: 1fr 1fr; } .item__lugar { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.4"/></symbol>
+    <symbol id="i-subir" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-buscar" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-mas" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-papelera" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-izq" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-recargar" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></symbol>
+  </defs>
+</svg>
+<header class="barra">
+  <div class="barra__dentro">
+    <a class="marca" href="../index.html" aria-label="Volver a Quedamos"><span class="marca__placa"><span>Quedamos</span></span></a>
+    <a class="boton boton--fantasma boton--s" href="../index.html" style="margin-left:auto"><svg class="ico ico--s"><use href="#i-izq"/></svg>Volver a la web</a>
+  </div>
+</header>
+<main id="contenido" style="max-width:1100px">
+  <div class="cabecera">
+    <div class="cabecera__texto">
+      <h1>Importar un formulario</h1>
+      <p>Lee el Excel de Google Forms, te propone cómo separar cada respuesta y detecta recomendaciones repetidas. Al final descargas un <code>datos.js</code> nuevo para sustituir el de la carpeta <code>js/</code>.</p>
+    </div>
+  </div>
+  <div id="pasos"></div>
+</main>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script src="../js/datos.js"></script>
+<script>window.DATOS_ORIGINAL = JSON.parse(JSON.stringify(window.DATOS));</script>
+<script src="../js/nucleo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" crossorigin="anonymous"></script>
+<script src="importar.js"></script>
+</body>
+</html>
